@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Случайная цитата</title>
+    <script>
+        async function fetchQuote() {
+            try {
+                let response = await fetch('/get_quote');
+                if (response.ok) {
+                    let data = await response.json();
+                    document.getElementById('quote').innerText = data.quote;
+                    document.getElementById('author').innerText = '— ' + data.author;
+                } else {
+                    document.getElementById('quote').innerText = 'Не удалось получить цитату в это время.';
+                    document.getElementById('author').innerText = '';
+                }
+            } catch (error) {
+                document.getElementById('quote').innerText = 'Ошибка: ' + error;
+                document.getElementById('author').innerText = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Генератор случайных цитат</h1>
+    <p id="quote">Нажмите кнопку, чтобы получить цитату.</p>
+    <footer>
+        <p id="author"></p>
+    </footer>
+    <button onclick="fetchQuote()">Получить новую цитату</button>
+</body>
+</html>
+
+</html>
